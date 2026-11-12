@@ -1,0 +1,19 @@
+# dbt
+target/
+logs/
+dbt_packages/
+dbt_modules/
+
+# Credentials
+profiles.yml
+.env
+*.pem
+*.p8
+
+# Python
+__pycache__/
+*.pyc
+
+# Editors
+.vscode/
+.idea/

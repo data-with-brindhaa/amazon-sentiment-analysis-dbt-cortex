@@ -1,0 +1,39 @@
+WITH product_reviews AS (
+
+    SELECT *
+    FROM {{ ref('int_product_reviews') }}
+
+),
+
+product_aggregates AS (
+
+    SELECT
+        ASIN,
+        PRODUCT_TITLE,
+        PRODUCT_RATING,
+        NUMBER_OF_RATINGS,
+        PRODUCT_URL,
+
+        COUNT(REVIEW_ID) AS TOTAL_REVIEWS,
+
+        SUM(CASE WHEN REVIEW_STARS = 1 THEN 1 ELSE 0 END) AS ONE_STAR,
+        SUM(CASE WHEN REVIEW_STARS = 2 THEN 1 ELSE 0 END) AS TWO_STAR,
+        SUM(CASE WHEN REVIEW_STARS = 3 THEN 1 ELSE 0 END) AS THREE_STAR,
+        SUM(CASE WHEN REVIEW_STARS = 4 THEN 1 ELSE 0 END) AS FOUR_STAR,
+        SUM(CASE WHEN REVIEW_STARS = 5 THEN 1 ELSE 0 END) AS FIVE_STAR,
+
+        ROUND(AVG(REVIEW_STARS), 2) AS AVG_REVIEW_RATING
+
+    FROM product_reviews
+
+    GROUP BY
+        ASIN,
+        PRODUCT_TITLE,
+        PRODUCT_RATING,
+        NUMBER_OF_RATINGS,
+        PRODUCT_URL
+
+)
+
+SELECT *
+FROM product_aggregates

@@ -1,0 +1,27 @@
+WITH source AS (
+
+    SELECT *
+    FROM AMAZON_BEST_SELLERS_RATINGS_AND_REVIEWS.PUBLIC.PRODUCTS
+
+),
+
+renamed AS (
+
+    SELECT
+        URL AS PRODUCT_URL,
+        ASIN,
+        MAIN_IMAGE,
+        ALT_IMAGES,
+        TITLE AS PRODUCT_TITLE,
+        BREADCRUMBS,
+        RATING,
+        NUMBER_OF_RATINGS,
+        DESCRIPTION,
+        CHARACTERISTICS
+
+    FROM source
+
+)
+
+SELECT *
+FROM renamed
